@@ -222,12 +222,15 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   call plug#begin('~/.local/share/vim/plugins')
   Plug 'frazrepo/vim-rainbow'
   Plug 'vim-pandoc/vim-pandoc'
-  Plug 'pegn/pegn-syntax'
   Plug 'rwxrob/vim-pandoc-syntax-simple'
   Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
   Plug 'tpope/vim-fugitive'
-  Plug 'hashivim/vim-terraform'
-  Plug 'morhetz/gruvbox'
+  Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
+  Plug 'mattn/emmet-vim' 
+  Plug 'othree/html5.vim'
+  Plug 'pangloss/vim-javascript'
+  Plug 'evanleck/vim-svelte', {'branch': 'main'}
+  Plug 'dense-analysis/ale'
   call plug#end()
 
   " rainbow
@@ -235,11 +238,42 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   "let g:rainbow_active=1
 
   " terraform
-  let g:terraform_fmt_on_save = 1
+  " let g:terraform_fmt_on_save = 1
 
   " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
   let g:pandoc#formatting#textwidth = 72
+
+  " Svelte
+  let g:svelte_preprocessor_tags = [
+  \ { 'name': 'ts', 'tag': 'script', 'as': 'typescript' }
+  \ ]
+  let g:svelte_preprocessors = ['typescript'] 
+
+  " html / css
+  let g:ale_fixers = {
+  \   'svelte': ['prettier'],
+  \   'typescript': ['prettier'],
+  \   'javascript': ['prettier'],
+  \   'css': ['prettier'],
+  \}
+
+  let g:ale_linters = {
+  \ 'svelte': ['eslint'],
+  \ 'typescript': ['eslint'],
+  \ 'javascript': ['eslint'],
+  \ 'html': ['eslint'],
+  \}
+
+  " Set this in your vimrc file to disabling highlighting
+  let g:ale_set_highlights = 0
+
+  let g:ale_linters_explicit = 0
+  let g:ale_fix_on_save = 1
+  let g:ale_javascript_prettier_options = '--single-quote --trailing-comma all'
+
+  let g:ale_sign_error = '●'
+  let g:ale_sign_warning = '.'
 
   " golang
   let g:go_fmt_fail_silently = 0
@@ -293,8 +327,8 @@ endif
 " s,/foo,/bar,g
 "autocmd vimleavepre *.md !perl -p -i -e 's,\[([^\]]+)\]\(\),[\1](https://duck.com/lite?kd=-1&kp=-1&q=\1),g' %
 
-autocmd BufWritePost *.md silent !toemoji %
-autocmd BufWritePost *.md silent !toduck %
+" autocmd BufWritePost *.md silent !toemoji %
+" autocmd BufWritePost *.md silent !toduck %
 
 " fill in anything beginning with @ with a link to twitch to it
 " autocmd vimleavepre *.md !perl -p -i -e 's, @(\w+), [\\@\1](https://twitch.tv/\1),g' %
@@ -307,6 +341,9 @@ set wildmenu
 
 " disable search highlighting with <C-L> when refreshing screen
 nnoremap <C-L> :nohl<CR><C-L>
+
+" disable ctrl + y for emmet?
+" nnoremap <C-y> <Nop>
 
 " enable omni-completion
 set omnifunc=syntaxcomplete#Complete
@@ -377,6 +414,7 @@ nmap <leader>2 :set paste<CR>i
 "noremap <up> :echoerr "Umm, use k instead"<CR>
 "noremap <down> :echoerr "Umm, use j instead"<CR>
 "noremap <left> :echoerr "Umm, use h instead"<CR>
+"
 " noremap <right> :echoerr "Umm, use l instead"<CR>
 " inoremap <up> <NOP>
 " inoremap <down> <NOP>
