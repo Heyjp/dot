@@ -231,6 +231,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'pangloss/vim-javascript'
   Plug 'evanleck/vim-svelte', {'branch': 'main'}
   Plug 'dense-analysis/ale'
+  Plug 'elixir-editors/vim-elixir'
   call plug#end()
 
   " rainbow
@@ -243,6 +244,21 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   " pandoc
   let g:pandoc#formatting#mode = 'h' " A'
   let g:pandoc#formatting#textwidth = 72
+
+  " Elixir
+  
+  " Enable syntax highlighting
+  syntax on
+
+  " Enables filetype detection, loads ftplugin, and loads indent
+  " (Not necessary on nvim and may not be necessary on vim 8.2+)
+  filetype plugin indent on
+
+  au BufRead,BufNewFile *.ex,*.exs set filetype=elixir
+  au BufRead,BufNewFile *.eex,*.heex,*.leex,*.sface,*.lexs set filetype=eelixir
+  au BufRead,BufNewFile mix.lock set filetype=elixir
+
+
 
   " Svelte
   let g:svelte_preprocessor_tags = [
