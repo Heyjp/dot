@@ -345,9 +345,6 @@ export NVM_DIR="$HOME/.nvm"
 # bind -r '\C-y'
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" 
 
-# --------------------------------- Logger Dev ------------------------------
-export LOGGER_BACKEND_PORT=8000
-export LOGGER_BACKEND_IP=192.168.0.33
 
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
